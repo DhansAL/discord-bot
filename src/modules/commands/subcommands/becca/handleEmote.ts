@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { emoteList } from "../../../../config/commands/emoteList";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
@@ -22,7 +22,15 @@ export const handleEmote: CommandHandler = async (Becca, interaction) => {
     emoteEmbed.setImage(`https://www.beccalyria.com/assets/emotes/${fileName}`);
     emoteEmbed.setFooter("Art by Starfazers: https://starfazers.art");
 
-    await interaction.editReply({ embeds: [emoteEmbed] });
+    const button = new MessageButton()
+      .setLabel("View More Emotes")
+      .setEmoji("<:BeccaArt:897545793655930910>")
+      .setStyle("LINK")
+      .setURL("https://www.beccalyria.com/emotes");
+
+    const row = new MessageActionRow().addComponents([button]);
+
+    await interaction.editReply({ embeds: [emoteEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

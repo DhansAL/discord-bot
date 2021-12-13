@@ -81,7 +81,7 @@ export const triggers: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "triggers" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

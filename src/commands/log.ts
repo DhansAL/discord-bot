@@ -92,7 +92,7 @@ export const log: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "log" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

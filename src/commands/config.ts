@@ -102,7 +102,7 @@ export const config: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "config" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

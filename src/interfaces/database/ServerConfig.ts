@@ -36,6 +36,7 @@ export interface ServerConfig extends Document {
   links: string;
   profanity: string;
   profanity_message: string;
+  emote_channels: string[];
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -71,4 +72,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   links: "",
   profanity: "",
   profanity_message: "",
+  emote_channels: [],
 };

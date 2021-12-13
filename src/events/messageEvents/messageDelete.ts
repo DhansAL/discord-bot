@@ -57,7 +57,7 @@ export const messageDelete = async (
         sendLogEmbed(Becca, guild, embed, "message_events")
       );
     }
-    Becca.grafana.metrics.events.inc({ eventType: "message" });
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

@@ -51,7 +51,7 @@ export const memberUpdate = async (
         }
       }
     }
-    Becca.grafana.metrics.events.inc({ eventType: "member" });
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

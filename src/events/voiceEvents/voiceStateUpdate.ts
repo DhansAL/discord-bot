@@ -93,7 +93,7 @@ export const voiceStateUpdate = async (
     if (voiceEmbed.description) {
       await sendLogEmbed(Becca, oldState.guild, voiceEmbed, "voice_events");
     }
-    Becca.grafana.metrics.events.inc({ eventType: "voice" });
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "voice state update listener", err);
   }

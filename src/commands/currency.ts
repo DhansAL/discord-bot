@@ -167,7 +167,7 @@ export const currency: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "currency" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

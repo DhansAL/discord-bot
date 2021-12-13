@@ -59,7 +59,7 @@ export const emote: Command = {
             content: getRandomValue(Becca.responses.invalidCommand),
           });
       }
-      Becca.grafana.metrics.commands.inc({ command: "emote" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

@@ -29,7 +29,7 @@ export const threadCreate = async (
     threadEmbed.setFooter(`ID: ${thread.id}`);
 
     await sendLogEmbed(Becca, thread.guild, threadEmbed, "thread_events");
-    Becca.grafana.metrics.events.inc({ eventType: "thread" });
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "thread create event", err);
   }

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -23,7 +23,23 @@ export const handleInvite: CommandHandler = async (Becca, interaction) => {
     );
     inviteEmbed.setTimestamp();
 
-    await interaction.editReply({ embeds: [inviteEmbed] });
+    const inviteButton = new MessageButton()
+      .setLabel("Add Becca to your server!")
+      .setEmoji("<:BeccaHello:867102882791424073>")
+      .setStyle("LINK")
+      .setURL("https://invite.beccalyria.com");
+    const supportServerButton = new MessageButton()
+      .setLabel("Join the Support Server")
+      .setEmoji("<:BeccaHuh:877278300739887134>")
+      .setStyle("LINK")
+      .setURL("https://chat.nhcarrigan.com");
+
+    const row = new MessageActionRow().addComponents([
+      inviteButton,
+      supportServerButton,
+    ]);
+
+    await interaction.editReply({ embeds: [inviteEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

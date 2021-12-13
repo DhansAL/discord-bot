@@ -49,6 +49,6 @@ export const guildDelete = async (
   await WarningModel.findOneAndDelete({ serverID: guild.id });
   await CommandCountModel.findOneAndDelete({ serverID: guild.id });
 
-  Becca.grafana.metrics.guilds.dec();
-  Becca.grafana.metrics.events.inc({ eventType: "guild" });
+  Becca.pm2.metrics.guilds.set(Becca.pm2.metrics.guilds.val() - 1);
+  Becca.pm2.metrics.events.mark();
 };

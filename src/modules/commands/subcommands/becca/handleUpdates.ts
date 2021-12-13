@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import {
   nextScheduledRelease,
@@ -42,7 +42,15 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
     updateEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com"
     );
-    await interaction.editReply({ embeds: [updateEmbed] });
+
+    const button = new MessageButton()
+      .setLabel("View Changelog")
+      .setEmoji("<:BeccaNotes:883854700762505287>")
+      .setStyle("LINK")
+      .setURL("https://docs.beccalyria.com/#/changelog");
+
+    const row = new MessageActionRow().addComponents([button]);
+    await interaction.editReply({ embeds: [updateEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

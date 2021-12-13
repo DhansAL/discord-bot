@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -21,7 +21,16 @@ export const handleProfile: CommandHandler = async (Becca, interaction) => {
     profileEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com"
     );
-    await interaction.editReply({ embeds: [profileEmbed] });
+
+    const profileButton = new MessageButton()
+      .setLabel("View Becca's Profile")
+      .setEmoji("<:BeccaHello:867102882791424073>")
+      .setStyle("LINK")
+      .setURL("https://www.beccalyria.com");
+
+    const row = new MessageActionRow().addComponents([profileButton]);
+
+    await interaction.editReply({ embeds: [profileEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

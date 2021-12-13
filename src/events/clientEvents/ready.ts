@@ -24,9 +24,9 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
   beccaLogHandler.log("debug", "Discord ready!");
 
   const counts = getCounts(Becca);
-  Becca.grafana.metrics.guilds.set(counts.guilds);
-  Becca.grafana.metrics.users.set(counts.members);
+  Becca.pm2.metrics.guilds.set(counts.guilds);
+  Becca.pm2.metrics.users.set(counts.members);
 
-  beccaLogHandler.log("debug", "Loaded Grafana counts!");
-  Becca.grafana.metrics.events.inc({ eventType: "client" });
+  beccaLogHandler.log("debug", "Loaded PM2 counts!");
+  Becca.pm2.metrics.events.mark();
 };

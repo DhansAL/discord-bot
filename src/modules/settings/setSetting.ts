@@ -49,6 +49,7 @@ export const setSetting = async (
       case "self_roles":
       case "automod_roles":
       case "level_ignore":
+      case "emote_channels":
         if (server[key].includes(parsedValue)) {
           const index = server[key].indexOf(parsedValue);
           server[key].splice(index, 1);

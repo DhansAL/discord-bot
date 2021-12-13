@@ -14,5 +14,5 @@ export const shardError = async (
   shard: number
 ): Promise<void> => {
   await beccaErrorHandler(Becca, `shard ${shard}`, error);
-  Becca.grafana.metrics.events.inc({ eventType: "shard" });
+  Becca.pm2.metrics.events.mark();
 };

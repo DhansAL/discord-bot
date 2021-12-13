@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import CommandCountModel from "../../../../database/models/CommandCountModel";
 import VoterModel from "../../../../database/models/VoterModel";
@@ -50,7 +50,9 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         "Like the bot? Donate: https://donate.nhcarrigan.com"
       );
 
-      await interaction.editReply({ embeds: [commandEmbed] });
+      await interaction.editReply({
+        embeds: [commandEmbed],
+      });
       return;
     }
 
@@ -79,7 +81,23 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         "Like the bot? Donate: https://donate.nhcarrigan.com"
       );
 
-      await interaction.editReply({ embeds: [serverEmbed] });
+      const supportServerButton = new MessageButton()
+        .setLabel("Join the Support Server")
+        .setEmoji("<:BeccaHello:867102882791424073>")
+        .setStyle("LINK")
+        .setURL("https://chat.nhcarrigan.com");
+      const voteServerButton = new MessageButton()
+        .setLabel("Vote for the Server")
+        .setEmoji("<:BeccaWoah:877278300949585980>")
+        .setStyle("LINK")
+        .setURL("https://top.gg/servers/778130114772598785/vote");
+
+      const row = new MessageActionRow().addComponents([
+        supportServerButton,
+        voteServerButton,
+      ]);
+
+      await interaction.editReply({ embeds: [serverEmbed], components: [row] });
       return;
     }
 

@@ -73,7 +73,7 @@ export const manage: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "manage" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

@@ -69,8 +69,8 @@ export const memberAdd = async (
       }
     }
 
-    Becca.grafana.metrics.users.inc();
-    Becca.grafana.metrics.events.inc({ eventType: "member" });
+    Becca.pm2.metrics.users.set(Becca.pm2.metrics.users.val() + 1);
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
   }

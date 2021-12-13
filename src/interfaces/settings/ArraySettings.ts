@@ -10,4 +10,5 @@ export type ArraySettings =
   | "automod_roles"
   | "allowed_links"
   | "level_roles"
-  | "level_ignore";
+  | "level_ignore"
+  | "emote_channels";

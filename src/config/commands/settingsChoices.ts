@@ -23,6 +23,7 @@ export const configChoices: [string, Settings][] = [
   ["Report Channel", "report_channel"],
   ["No Levelling Channels", "level_ignore"],
   ["Sass Mode", "sass_mode"],
+  ["Emote-Only Channels", "emote_channels"],
 ];
 
 export const configViewChoices: [string, ArraySettings | "global"][] = [
@@ -33,6 +34,7 @@ export const configViewChoices: [string, ArraySettings | "global"][] = [
   ["Blocked Users", "blocked"],
   ["Level-assigned Roles", "level_roles"],
   ["No Levelling Channels", "level_ignore"],
+  ["Emote-Only Channels", "emote_channels"],
 ];
 
 export const logChoices: [string, LogSettings][] = [

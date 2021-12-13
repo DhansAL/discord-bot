@@ -140,7 +140,7 @@ export const becca: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "becca" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

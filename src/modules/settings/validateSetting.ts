@@ -67,6 +67,7 @@ export const validateSetting = async (
         );
       case "automod_channels":
       case "no_automod_channels":
+      case "emote_channels":
         return (
           !!guild.channels.cache.find(
             (el) => el.type === "GUILD_TEXT" && el.id === `${parsedValue}`

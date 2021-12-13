@@ -1,7 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Migrated Level system",
-  "- Patched issue in new level system query",
-  "- Added CTA to donate in embed footers.",
+  "- Patched the emote-only regex to account for additional unicode character",
 ];
 
-export const nextScheduledRelease = "<t:1637510400:F>";
+export const nextScheduledRelease = "<t:1639929600:f>";

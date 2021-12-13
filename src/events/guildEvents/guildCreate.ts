@@ -37,6 +37,6 @@ export const guildCreate = async (
 
   await Becca.debugHook.send({ embeds: [guildCreateEmbed] });
 
-  Becca.grafana.metrics.guilds.inc();
-  Becca.grafana.metrics.events.inc({ eventType: "guild" });
+  Becca.pm2.metrics.guilds.set(Becca.pm2.metrics.guilds.val() + 1);
+  Becca.pm2.metrics.events.mark();
 };

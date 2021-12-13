@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -16,7 +16,7 @@ export const handleAbout: CommandHandler = async (Becca, interaction) => {
     aboutEmbed.setColor(Becca.colours.default);
     aboutEmbed.setTitle("Becca Lyria the Discord Bot");
     aboutEmbed.setDescription(
-      "Becca was created by [nhcarrigan](https://www.nhcarrigan.com). You can [view her source code](https://github.com/beccalyria/discord-bot) or join the [official chat server](http://chat.nhcarrigan.com)."
+      "Becca Lyria is a Discord bot built for community management and moderation. She includes various tools to help moderate your server, as well as fun commands to drive engagement and interaction among your members. All of her commands use the new slash command interface, which helps your members use the features in a streamlined and clear way."
     );
     aboutEmbed.addField(
       "Version",
@@ -30,7 +30,29 @@ export const handleAbout: CommandHandler = async (Becca, interaction) => {
     aboutEmbed.addField("Favourite Colour", "Purple", true);
     aboutEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
-    await interaction.editReply({ embeds: [aboutEmbed] });
+    const supportServerButton = new MessageButton()
+      .setLabel("Join the Support Server")
+      .setEmoji("<:BeccaHuh:877278300739887134>")
+      .setStyle("LINK")
+      .setURL("https://chat.nhcarrigan.com");
+    const inviteButton = new MessageButton()
+      .setLabel("Add Becca to your server!")
+      .setEmoji("<:BeccaHello:867102882791424073>")
+      .setStyle("LINK")
+      .setURL("https://invite.beccalyria.com");
+    const codeButton = new MessageButton()
+      .setLabel("View Becca's Source Code")
+      .setEmoji("<:BeccaNotes:883854700762505287>")
+      .setStyle("LINK")
+      .setURL("https://github.com/beccalyria/discord-bot");
+
+    const row = new MessageActionRow().addComponents([
+      supportServerButton,
+      inviteButton,
+      codeButton,
+    ]);
+
+    await interaction.editReply({ embeds: [aboutEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

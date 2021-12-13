@@ -1,5 +1,7 @@
+import io from "@pm2/io";
+import Gauge from "@pm2/io/build/main/utils/metrics/gauge";
+import Meter from "@pm2/io/build/main/utils/metrics/meter";
 import { Client, ColorResolvable, WebhookClient } from "discord.js";
-import prom from "prom-client";
 
 import { Command } from "./commands/Command";
 import { OrbitMember } from "./commands/misc/Orbit";
@@ -60,15 +62,14 @@ export interface BeccaLyria extends Client {
   dataCache: {
     orbitData: OrbitMember[];
   };
-  grafana: {
-    client: typeof prom;
-    register: prom.Registry;
+  pm2: {
+    client: typeof io;
     metrics: {
-      events: prom.Counter<string>;
-      commands: prom.Counter<string>;
-      errors: prom.Counter<string>;
-      guilds: prom.Gauge<string>;
-      users: prom.Gauge<string>;
+      events: Meter;
+      commands: Meter;
+      errors: Meter;
+      guilds: Gauge;
+      users: Gauge;
     };
   };
 }

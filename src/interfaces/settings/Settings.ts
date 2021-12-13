@@ -31,4 +31,5 @@ export type Settings =
   | "member_events"
   | "links"
   | "profanity"
-  | "profanity_message";
+  | "profanity_message"
+  | "emote_channels";

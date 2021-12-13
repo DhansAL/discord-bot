@@ -1,5 +1,9 @@
 import { REST } from "@discordjs/rest";
-import { APIApplicationCommandOption, Routes } from "discord-api-types/v9";
+import {
+  RESTPostAPIApplicationCommandsJSONBody,
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
+  Routes,
+} from "discord-api-types/v9";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
@@ -21,15 +25,15 @@ export const registerCommands = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const rest = new REST({ version: "9" }).setToken(Becca.configs.token);
 
-    const commandData: {
-      name: string;
-      description?: string;
-      type?: number;
-      options?: APIApplicationCommandOption[];
-    }[] = [];
+    const commandData: (
+      | RESTPostAPIApplicationCommandsJSONBody
+      | RESTPostAPIChatInputApplicationCommandsJSONBody
+    )[] = [];
 
     Becca.commands.forEach((command) =>
-      commandData.push(command.data.toJSON())
+      commandData.push(
+        command.data.toJSON() as RESTPostAPIApplicationCommandsJSONBody
+      )
     );
     Becca.contexts.forEach((context) => commandData.push(context.data));
     if (process.env.NODE_ENV === "production") {

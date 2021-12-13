@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodListener } from "../../listeners/automodListener";
+import { emoteListener } from "../../listeners/emoteListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { sassListener } from "../../listeners/sassListener";
@@ -43,6 +44,7 @@ export const messageCreate = async (
     await levelListener.run(Becca, message, serverConfig);
     await sassListener.run(Becca, message, serverConfig);
     await triggerListener.run(Becca, message, serverConfig);
+    await emoteListener.run(Becca, message, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&
@@ -51,7 +53,7 @@ export const messageCreate = async (
       await registerCommands(Becca);
       await message.reply("Reloaded all commands.");
     }
-    Becca.grafana.metrics.events.inc({ eventType: "message" });
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

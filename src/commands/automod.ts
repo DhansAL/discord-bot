@@ -126,7 +126,7 @@ export const automod: Command = {
           });
           break;
       }
-      Becca.grafana.metrics.commands.inc({ command: "automod" });
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

@@ -22,7 +22,9 @@ export const handleWeekly: CurrencyHandler = async (
     const homeServer = await interaction.client.guilds.fetch(
       Becca.configs.homeGuild
     );
-    const userIsMember = await homeServer.members.fetch(interaction.user.id);
+    const userIsMember = await homeServer.members
+      .fetch(interaction.user.id)
+      .catch(() => null);
 
     if (!userIsMember) {
       const nopeEmbed = new MessageEmbed();

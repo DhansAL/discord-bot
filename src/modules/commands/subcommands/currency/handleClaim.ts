@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CurrencyHandler } from "../../../../interfaces/commands/CurrencyHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -88,7 +88,14 @@ export const handleClaim: CurrencyHandler = async (
         return;
     }
 
-    await interaction.editReply({ embeds: [claimEmbed] });
+    const supportServerButton = new MessageButton()
+      .setLabel("Join Our Server to Redeem your Rewards!")
+      .setEmoji("<:BeccaHuh:877278300739887134>")
+      .setStyle("LINK")
+      .setURL("https://chat.nhcarrigan.com");
+    const row = new MessageActionRow().addComponents([supportServerButton]);
+
+    await interaction.editReply({ embeds: [claimEmbed], components: [row] });
 
     await Becca.currencyHook.send(
       `Hey <@!${Becca.configs.ownerId}>! A reward has been claimed!\n**Reward**: ${reward}\n**Username**: ${interaction.user.username}\n**UserID**: ${interaction.user.id}\nUser in Server? <@!${interaction.user.id}>`

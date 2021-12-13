@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -18,26 +18,61 @@ export const handleHelp: CommandHandler = async (Becca, interaction) => {
     );
     helpEmbed.addField(
       "Support Server",
-      "If you need some extra guidance, [join my support server](https://chat.nhcarrigan.com) where my minions will be glad to serve you."
+      "If you need some extra guidance, join my support server where my minions will be glad to serve you."
     );
     helpEmbed.addField(
       "Documentation",
-      "As an alternative, you are welcome to view my [instruction manual](https://www.beccalyria.com/discord-documentation) to see what I can do."
+      "As an alternative, you are welcome to view my instruction manual to see what I can do."
     );
     helpEmbed.addField(
       "Source Code",
-      "Should you be feeling extra ambitious, you can also dive in to my [spellbook](https://github.com/BeccaLyria/discord-bot) and look at my abilities yourself."
+      "Should you be feeling extra ambitious, you can also dive in to my spellbook and look at my abilities yourself."
     );
     helpEmbed.addField(
       "Bug Report",
-      "Have I failed you in some way? You can [report an issue](https://github.com/BeccaLyria/discord-bot/issues/choose), or let us know in the support server."
+      "Have I failed you in some way? You can report an issue, or let us know in the support server."
     );
     helpEmbed.addField(
       "Privacy Policy",
       "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://github.com/BeccaLyria/discord-bot/blob/main/PRIVACY.md)"
     );
     helpEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
-    await interaction.editReply({ embeds: [helpEmbed] });
+
+    const supportServerButton = new MessageButton()
+      .setLabel("Join the Support Server")
+      .setEmoji("<:BeccaHuh:877278300739887134>")
+      .setStyle("LINK")
+      .setURL("https://chat.nhcarrigan.com");
+    const inviteButton = new MessageButton()
+      .setLabel("Add Becca to your server!")
+      .setEmoji("<:BeccaHello:867102882791424073>")
+      .setStyle("LINK")
+      .setURL("https://invite.beccalyria.com");
+    const codeButton = new MessageButton()
+      .setLabel("View Becca's Source Code")
+      .setEmoji("<:BeccaNotes:883854700762505287>")
+      .setStyle("LINK")
+      .setURL("https://github.com/beccalyria/discord-bot");
+    const docsButton = new MessageButton()
+      .setLabel("View the Documentation")
+      .setEmoji("<:BeccaSalute:872577687590420501>")
+      .setStyle("LINK")
+      .setURL("https://docs.beccalyria.com");
+    const reportButton = new MessageButton()
+      .setLabel("Report an Issue")
+      .setEmoji("<:BeccaBan:897545793886634085>")
+      .setStyle("LINK")
+      .setURL("https://github.com/beccalyria/discord-bot/issues/new/choose");
+
+    const row = new MessageActionRow().addComponents([
+      supportServerButton,
+      inviteButton,
+      codeButton,
+      docsButton,
+      reportButton,
+    ]);
+
+    await interaction.editReply({ embeds: [helpEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
